@@ -4,7 +4,7 @@ import com.example.lctc.dto.UserDTO;
 import com.example.lctc.entity.User;
 
 public interface UserService {
-    User getUserDetails(Long userId);
+    UserDTO getUserDetails(Long userId);
     User addUser(UserDTO userDTO);
     User login(UserDTO userDTO);
     User participate(UserDTO userDTO);

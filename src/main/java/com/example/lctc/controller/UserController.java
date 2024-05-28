@@ -18,9 +18,9 @@ public class UserController {
     /*
     * API for fetching user details*/
     @GetMapping("/userDetails/{userId}")
-    public ResponseEntity<User> getUserDetails(@PathVariable("userId") Long userId){
-        User user = userServiceImpl.getUserDetails(userId);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUserDetails(@PathVariable("userId") Long userId){
+        UserDTO userDTO = userServiceImpl.getUserDetails(userId);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     /*

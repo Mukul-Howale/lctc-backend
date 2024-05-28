@@ -4,7 +4,6 @@ import com.example.lctc.dto.UserDTO;
 import com.example.lctc.entity.User;
 import com.example.lctc.exception.EmptyInputException;
 import com.example.lctc.exception.GeneralException;
-import com.example.lctc.exception.InvalidEmailException;
 import com.example.lctc.repository.UserRepository;
 import com.example.lctc.service.UserService;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -27,9 +26,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public User getUserDetails(Long userId){
+    public UserDTO getUserDetails(Long userId){
         try {
-            return userRepository.findById(userId).get();
+            Optional<User> optionalUser = userRepository.findById(userId);
+            User user = optionalUser.orElse(new User());
+            return modelMapper.map(user, UserDTO.class);
         }
         catch (Exception e){
             throw new GeneralException("UserService - getUserDetails");
@@ -38,29 +39,6 @@ public class UserServiceImpl implements UserService {
 
     public User addUser(UserDTO userDTO) {
         try{
-            // Below code should be in frontend
-//            if(userDTO.getUserName().isEmpty()){
-//                throw new EmptyInputException("Please enter name");
-//            }
-//            else if (userDTO.getUserName().length() <= 2){
-//                throw new EmptyInputException("Please enter full name");
-//            }
-//            else if(userDTO.getUserEmail().isEmpty()){
-//                throw new EmptyInputException("Please enter email");
-//            }
-//            else if(!userDTO.getUserEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")){
-//                throw new InvalidEmailException("Please enter correct email");
-//            }
-//            else if(findUserByEmail(userDTO) != null){
-//                throw new InvalidEmailException("Email already registered");
-//            }
-//            else if(userDTO.getUserPass().isEmpty()){
-//                throw new EmptyInputException("Please enter password");
-//            }
-//            else if(userDTO.getUserPass().length() <= 4){
-//                throw new EmptyInputException("Password should be more that 4 characters");
-//            }
-
             SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                     .filterOutAllExcept("userName","userEmail","userPass","isLoggedIn");
 
