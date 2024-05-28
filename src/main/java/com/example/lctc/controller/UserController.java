@@ -1,29 +1,25 @@
 package com.example.lctc.controller;
 
 import com.example.lctc.dto.UserDTO;
-import com.example.lctc.entity.Challenge;
 import com.example.lctc.entity.User;
-import com.example.lctc.exception.GeneralException;
-import com.example.lctc.service.UserService;
+import com.example.lctc.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
     
     /*
     * API for fetching user details*/
     @GetMapping("/userDetails/{userId}")
     public ResponseEntity<User> getUserDetails(@PathVariable("userId") Long userId){
-        User user = userService.getUserDetails(userId);
+        User user = userServiceImpl.getUserDetails(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -32,7 +28,7 @@ public class UserController {
     * Users can register to website*/
     @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody UserDTO user){
-        User savedUser = userService.addUser(user);
+        User savedUser = userServiceImpl.addUser(user);
         return new ResponseEntity<>(savedUser,HttpStatus.OK);
     }
 
@@ -41,7 +37,7 @@ public class UserController {
     * User can login to the website*/
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody UserDTO userDTO) {
-        User user = userService.login(userDTO);
+        User user = userServiceImpl.login(userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -49,7 +45,7 @@ public class UserController {
     * Users can participate in challenges*/
     @PostMapping("/participate")    
     public ResponseEntity<User> participate(@RequestBody UserDTO userDTO){
-        User user = userService.participate(userDTO);
+        User user = userServiceImpl.participate(userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -57,29 +53,26 @@ public class UserController {
     * Get all the challenges
     */
 
-    @GetMapping("/upcomming-challenges")
-    public ResponseEntity<> upcomingChallenges(@RequestBody UserDTO userDTO){
-        User user = userService.upcomingChallenges(userDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/past-challenges")
-    public ResponseEntity<> pastChallenges(@ResponseBody UserDTO userDTO){
-        User user = userService.pastChallenges(userDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    // API for Internal Usage
-
-    /*
-
-     */
-    @GetMapping("/challenges")
-    public ResponseEntity<> challenges(@RequestBody UserDTO userDTO){
-        User user = userService.challenges(userDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<> 
+//    @GetMapping("/upcomming-challenges")
+//    public ResponseEntity<> upcomingChallenges(@RequestBody UserDTO userDTO){
+//        User user = userServiceImpl.upcomingChallenges(userDTO);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/past-challenges")
+//    public ResponseEntity<> pastChallenges(@ResponseBody UserDTO userDTO){
+//        User user = userServiceImpl.pastChallenges(userDTO);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    // API for Internal Usage
+//
+//    /*
+//
+//     */
+//    @GetMapping("/challenges")
+//    public ResponseEntity<> challenges(@RequestBody UserDTO userDTO){
+//        User user = userServiceImpl.challenges(userDTO);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

@@ -17,9 +17,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
             value = "SELECT * FROM lctc.`user` u WHERE u.email = :userEmail")
     Optional<User> findUserByEmail(@Param("userEmail") String userEmail);
 
-    // Get all the challenges
-    @Query(
-            nativeQuery = true,
-            value = "SELECT * FROM lctc.`user` u WHERE "
-    )
 }
